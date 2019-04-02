@@ -12,7 +12,7 @@ def test_binary_linear_regression_should_have_rmse_equal_to_zero_on_dummy_traini
 
     # When
     model.fit(X, y)
-    y_pred = model.predict_proba(X)
+    y_pred = model.predict(X)
     model_rmse = mean_squared_error(y, y_pred)
 
     # Then
@@ -26,7 +26,7 @@ def test_binary_linear_regression_without_bias_should_have_rmse_equal_to_zero_on
 
     # When
     model.fit(X, y)
-    y_pred = model.predict_proba(X)
+    y_pred = model.predict(X)
     model_rmse = mean_squared_error(y, y_pred)
 
     # Then
@@ -40,7 +40,7 @@ def test_binary_linear_regression_should_have_rmse_equal_to_zero_on_dummy_traini
 
     # When
     model.fit(X, y)
-    y_pred = model.predict_proba(X)
+    y_pred = model.predict(X)
     model_rmse = mean_squared_error(y, y_pred)
 
     # Then
@@ -54,7 +54,7 @@ def test_binary_linear_regression_without_bias_should_have_rmse_equal_to_zero_on
 
     # When
     model.fit(X, y)
-    y_pred = model.predict_proba(X)
+    y_pred = model.predict(X)
     model_rmse = mean_squared_error(y, y_pred)
 
     # Then

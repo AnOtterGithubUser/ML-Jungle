@@ -55,12 +55,8 @@ class BinaryLinearRegression:
             self.param = np.dot(np.linalg.pinv(np.dot(X.T, X)), np.dot(X.T, y))
         return self
 
-    def predict_proba(self, X):
+    def predict(self, X):
         if self.with_bias:
             X = self.add_bias(X)
         return np.dot(X, self.param)
-
-    def predict(self, X):
-        probas = self.predict_proba(X)
-        return (probas > 0.5).astype(int)
 
