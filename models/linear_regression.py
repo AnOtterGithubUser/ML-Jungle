@@ -20,31 +20,45 @@ class BinaryLinearRegression:
     http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
     """
 
-    def __init__(self, add_bias=True):
+    def __init__(self, with_bias=True):
         """
         Parameters
         ----------
-        add_bias: bool
+        with_bias: bool
             If True, add an intercept to the model.
             Otherwise, it assumes that your data are already centered
 
         """
-        self.add_bias = add_bias
+        self.with_bias = with_bias
+
+    @staticmethod
+    def add_bias(X):
+        return np.hstack((X, np.ones((X.shape[0], 1))))
 
     def fit(self, X, y):
-        if self.add_bias:
-            X = np.hstack((X, np.ones(X.shape[0], 1)))
+        """Fit the parameters of the model on the given data set
+        Parameters
+        ----------
+        X: numpy.ndarray
+            Feature matrix of size Nxp
+
+        y: numpy.ndarray
+            Labels
+
+        """
+        if self.with_bias:
+            X = self.add_bias(X)
         if np.linalg.matrix_rank(np.dot(X.T, X)) == X.shape[1]:
-            self.theta = np.dot(np.linalg.inv(np.dot(X.T, X)), np.dot(X.T, y))
+            self.param = np.dot(np.linalg.inv(np.dot(X.T, X)), np.dot(X.T, y))
         else:
             warnings.warn("The graam matrix is not inversible, we use the Moore Penrose pseudo-inverse in that case")
-            self.theta = np.dot(np.linalg.pinv(np.dot(X.T, X)), np.dot(X.T, y))
+            self.param = np.dot(np.linalg.pinv(np.dot(X.T, X)), np.dot(X.T, y))
         return self
 
     def predict_proba(self, X):
-        if self.add_bias:
-            X = np.hstack((X, np.ones(X.shape[0], 1)))
-        return np.dot(X, self.theta)
+        if self.with_bias:
+            X = self.add_bias(X)
+        return np.dot(X, self.param)
 
     def predict(self, X):
         probas = self.predict_proba(X)

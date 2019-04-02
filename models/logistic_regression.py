@@ -57,19 +57,19 @@ class BinaryLogisticRegression:
         """
         if self.with_bias:
             X = self.add_bias(X)
-        self.theta = np.zeros(X.shape[1])
+        self.param = np.zeros(X.shape[1])
         for step in range(self.max_iter):
-            y_pred = self.sigmoid(np.dot(X, self.theta))
+            y_pred = self.sigmoid(np.dot(X, self.param))
             gradient = np.dot(X.T, y - y_pred)
             if np.linalg.norm(self.learning_rate * gradient) < self.tolerance:
                 break
-            self.theta += self.learning_rate * gradient
+            self.param += self.learning_rate * gradient
         return self
 
     def predict_proba(self, X):
         if self.with_bias:
             X = self.add_bias(X)
-        return self.sigmoid(np.dot(X, self.theta))
+        return self.sigmoid(np.dot(X, self.param))
 
     def predict(self, X):
         probas = self.predict_proba(X)
