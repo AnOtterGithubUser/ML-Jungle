@@ -1,0 +1,11 @@
+# Compiled python
+*.pyc
+*.pyd
+
+# IPython notebooks checkpoint
+.ipynb_checkpoints/
+
+# Pycharm environment files
+.idea/
+venv/
+tests/.cache/
